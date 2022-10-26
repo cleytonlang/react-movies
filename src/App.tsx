@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "@nextui-org/react";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
-import "./App.css";
+import "../src/assets/css/App.css";
 
 import Header from "./components/Header";
 import Trending from "./components/Trending";

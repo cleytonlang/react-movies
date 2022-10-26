@@ -1,6 +1,6 @@
 import logo from "../../assets/images/logo.png";
 import "./style.css";
-import { Text, Loading, Button } from "@nextui-org/react";
+import { Loading, Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import getData from "../../service/api";
 
