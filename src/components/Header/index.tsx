@@ -1,6 +1,6 @@
 import logo from "../../assets/images/logo.png";
 import "./style.css";
-import { Text, Loading } from "@nextui-org/react";
+import { Text, Loading, Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import getData from "../../service/api";
 
@@ -43,17 +43,19 @@ export default function Header() {
         {!load &&
           genres.length &&
           genres.map((genre: genreProps) => (
-            <Text
-              h1
-              size={20}
-              css={{
-                textGradient: "45deg, $purple500 20%, $purple400 70%",
-              }}
-              weight="medium"
-              key={genre.name}
-            >
+            <Button flat color="primary" auto>
+              {/* <Text
+                h1
+                size={20}
+                css={{
+                  textGradient: "45deg, $purple500 20%, $purple400 70%",
+                }}
+                weight="medium"
+                key={genre.name}
+              > */}
               {genre.name}
-            </Text>
+              {/* </Text> */}
+            </Button>
           ))}
       </div>
     </header>

@@ -1,5 +1,14 @@
 import "./style.css";
-import { Grid, Card, Col, Text, Row, Button, Loading } from "@nextui-org/react";
+import {
+  Grid,
+  Card,
+  Col,
+  Text,
+  Row,
+  Button,
+  Loading,
+  Tooltip,
+} from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import getData from "../../service/api";
 
@@ -7,6 +16,8 @@ type trendingProps = {
   id: number;
   original_title: string;
   backdrop_path: string;
+  vote_average: number;
+  overview: string;
 };
 
 export default function Trending() {
@@ -72,32 +83,40 @@ export default function Trending() {
                     <Col>
                       <Row>
                         <Col>
-                          <Text color="#d1d1d1" size={12}>
-                            Breathing App
-                          </Text>
-                          <Text color="#d1d1d1" size={12}>
-                            Get a good night's sleep.
+                          <Text h5 color="#d1d1d1" size={18}>
+                            Vote average: {trend.vote_average.toFixed(1)}
                           </Text>
                         </Col>
                       </Row>
                     </Col>
                     <Col>
                       <Row justify="flex-end">
-                        <Button
-                          flat
-                          auto
+                        <Tooltip
+                          content={trend.overview}
                           rounded
-                          css={{ color: "#94f9f0", bg: "#94f9f026" }}
+                          color="secondary"
+                          css={{
+                            maxWidth: "350px",
+                            backgroundColor: "#111111",
+                          }}
+                          offset={40}
                         >
-                          <Text
-                            css={{ color: "inherit" }}
-                            size={12}
-                            weight="bold"
-                            transform="uppercase"
+                          <Button
+                            flat
+                            auto
+                            rounded
+                            css={{ color: "#94f9f0", bg: "#94f9f026" }}
                           >
-                            Get App
-                          </Text>
-                        </Button>
+                            <Text
+                              css={{ color: "inherit" }}
+                              size={12}
+                              weight="bold"
+                              transform="uppercase"
+                            >
+                              See overview
+                            </Text>
+                          </Button>
+                        </Tooltip>
                       </Row>
                     </Col>
                   </Row>
