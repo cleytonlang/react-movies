@@ -26,7 +26,7 @@ function App() {
 
   return (
     <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
-      <Container fluid>
+      <Container xl>
         <Header />
         <Trending />
       </Container>
