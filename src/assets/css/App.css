@@ -1,7 +1,7 @@
 body {
-  /* background-image: url("../images/background-1.jpg"); */
-  /* background-repeat: repeat-x; */
   background-color: #020d18;
+  background-image: url("../images/background-1.jpg");
+  background-repeat: repeat-x;
   background-attachment: fixed;
   /* background: -webkit-linear-gradient(180deg, #000000, #060c1f 70%); */
 }
