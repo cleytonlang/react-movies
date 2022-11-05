@@ -3,10 +3,10 @@ import "./style.css";
 
 export default function Header() {
   return (
-    <header>
+    <div className="header">
       <div>
         <img src={logo} className="logo" alt="CMovies" />
       </div>
-    </header>
+    </div>
   );
 }

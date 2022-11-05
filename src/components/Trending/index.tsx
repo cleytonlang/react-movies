@@ -8,6 +8,7 @@ import {
   Button,
   Loading,
   Tooltip,
+  Dropdown,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import getData from "../../service/api";
@@ -86,201 +87,69 @@ export default function Trending() {
       {load && <Loading type="points-opacity" />}
 
       <Row gap={1}>
-        <Col span={2}>
-          {genres.length &&
-            genres.map((genre: genreProps) => (
-              <Text
-                h1
-                size={30}
-                css={{
-                  textGradient: "45deg, $blue700 25%, $blue500 40%",
-                }}
-                weight="medium"
-                key={genre.name}
-              >
-                {genre.name}
-              </Text>
-            ))}
-        </Col>
-
-        <Col span={8}>
-          <Grid.Container gap={1} justify="center">
-            {!load && mainMovie && mainMovie.original_title && (
-              <Grid xs={12} sm={12}>
-                <Card isHoverable>
-                  <Card.Header
-                    css={{
-                      position: "absolute",
-                      zIndex: 1,
-                      top: 5,
-                    }}
-                  >
-                    <Col>
-                      <Text h2 color="#777777">
-                        {mainMovie.original_title}
-                      </Text>
-                    </Col>
-                  </Card.Header>
-                  <Card.Body css={{ p: 0 }}>
-                    <Card.Image
-                      src={`https://image.tmdb.org/t/p/w500/${mainMovie.backdrop_path}`}
-                      width="100%"
-                      height={440}
-                      objectFit="cover"
-                      alt="Card image background"
-                    />
-                  </Card.Body>
-                  <Card.Footer
-                    isBlurred
-                    css={{
-                      position: "absolute",
-                      bgBlur: "#0f111499",
-                      bottom: 0,
-                      zIndex: 1,
-                    }}
-                  >
-                    <Row>
-                      <Col span={3}>
-                        <Row>
-                          <Col>
-                            <Text h5 color="#999999" size={18}>
-                              Vote average: {mainMovie.vote_average.toFixed(1)}
-                            </Text>
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col>
-                        <Row justify="flex-end">
-                          <Text h4 color="#999999">
-                            {mainMovie.overview}
-                          </Text>
-                        </Row>
-                      </Col>
-                    </Row>
-                  </Card.Footer>
-                </Card>
-              </Grid>
-            )}
-
-            {!load &&
-              trendings.length &&
-              trendings
-                .filter((i, index) => index < 8)
-                .map((trend: trendingProps) => (
-                  <Grid xs={3} sm={3} key={trend.original_title}>
-                    <Card isHoverable>
-                      <Card.Header
-                        css={{ position: "absolute", zIndex: 1, top: 5 }}
-                      >
-                        <Col>
-                          <Text h4 color="white">
-                            {trend.original_title}
-                          </Text>
-                        </Col>
-                      </Card.Header>
-                      <Card.Body css={{ p: 0 }}>
-                        <Card.Image
-                          src={`https://image.tmdb.org/t/p/w500/${trend.backdrop_path}`}
-                          width="100%"
-                          height={340}
-                          objectFit="cover"
-                          alt="Card image background"
-                        />
-                      </Card.Body>
-                      <Card.Footer
-                        isBlurred
-                        css={{
-                          position: "absolute",
-                          bgBlur: "#0f111499",
-                          bottom: 0,
-                          zIndex: 1,
-                        }}
-                      >
-                        <Row>
-                          <Col>
-                            <Row>
-                              <Col>
-                                <Text h5 color="#d1d1d1" size={18}>
-                                  Vote average: {trend.vote_average.toFixed(1)}
-                                </Text>
-                              </Col>
-                            </Row>
-                          </Col>
-                          <Col>
-                            <Row justify="flex-end">
-                              <Tooltip
-                                content={trend.overview}
-                                rounded
-                                color="primary"
-                                css={{
-                                  maxWidth: "350px",
-                                  backgroundColor: "#111111",
-                                }}
-                                offset={40}
-                              >
-                                <Button
-                                  flat
-                                  auto
-                                  rounded
-                                  css={{ color: "#94f9f0", bg: "#94f9f026" }}
-                                >
-                                  <Text
-                                    css={{ color: "inherit" }}
-                                    size={12}
-                                    weight="bold"
-                                    transform="uppercase"
-                                  >
-                                    See overview
-                                  </Text>
-                                </Button>
-                              </Tooltip>
-                            </Row>
-                          </Col>
-                        </Row>
-                      </Card.Footer>
-                    </Card>
-                  </Grid>
-                ))}
+        <Col span={12}>
+          <Grid.Container justify="center">
+            <Dropdown>
+              <Dropdown.Button flat>Genres</Dropdown.Button>
+              <Dropdown.Menu aria-label="Dynamic Actions" items={genres}>
+                {(item: any) => (
+                  <Dropdown.Item key={item.name} color={"primary"}>
+                    {item.name}
+                  </Dropdown.Item>
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
           </Grid.Container>
-        </Col>
 
-        <Col span={2} className="colListTrends">
-          <Grid.Container>
+          <Grid.Container gap={3} justify="center">
             {!load &&
               trendings.length &&
               trendings.map((trend: trendingProps) => (
                 <Grid
                   xs={12}
+                  sm={6}
+                  md={4}
+                  lg={4}
+                  xl={4}
                   key={trend.original_title}
-                  onClick={() => {
-                    setMainMovie({
-                      original_title: trend.original_title,
-                      vote_average: trend.vote_average,
-                      overview: trend.overview,
-                      backdrop_path: trend.backdrop_path,
-                    });
-                  }}
                 >
-                  <Card isHoverable>
-                    <Card.Header
-                      css={{ position: "absolute", zIndex: 1, top: 5 }}
-                    >
-                      <Col>
-                        <Text h4 color="white">
-                          {trend.original_title}
+                  <div className="a-box">
+                    <div className="img-container">
+                      <div className="img-inner">
+                        <div className="inner-skew">
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500/${trend.backdrop_path}`}
+                            alt={trend.original_title}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-container">
+                      <Text
+                        h1
+                        size={25}
+                        css={{
+                          textGradient: "75deg, $gray900 30%, $gray900 50%",
+                          lineHeight: 1,
+                        }}
+                        weight="bold"
+                      >
+                        {trend.original_title}
+                      </Text>
+                      <div>
+                        <Text
+                          span
+                          size={15}
+                          css={{
+                            textGradient: "75deg, $gray900 30%, $gray900 50%",
+                            lineHeight: 1,
+                          }}
+                        >
+                          {trend.overview}
                         </Text>
-                      </Col>
-                    </Card.Header>
-                    <Card.Body css={{ p: 0 }}>
-                      <Card.Image
-                        src={`https://image.tmdb.org/t/p/w500/${trend.backdrop_path}`}
-                        width="100%"
-                        height={140}
-                        objectFit="cover"
-                        alt="Card image background"
-                      />
-                    </Card.Body>
-                  </Card>
+                      </div>
+                    </div>
+                  </div>
                 </Grid>
               ))}
           </Grid.Container>

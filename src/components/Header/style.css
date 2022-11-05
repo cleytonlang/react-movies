@@ -1,18 +1,18 @@
-header {
+.header {
   display: grid;
   justify-content: center;
-  margin-top: 40px;
   gap: 40px;
 }
 
-header div {
+.header div {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
   max-width: 1200px;
+  margin-top: 40px;
 }
 
 .logo {
-  width: 300px;
+  width: 180px;
 }

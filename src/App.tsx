@@ -4,6 +4,7 @@ import { createTheme, NextUIProvider } from "@nextui-org/react";
 import "../src/assets/css/App.css";
 
 import Header from "./components/Header";
+import HeaderBanner from "./components/HeaderBanner";
 import Trending from "./components/Trending";
 const lightTheme = createTheme({
   type: "light",
@@ -26,8 +27,9 @@ function App() {
 
   return (
     <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
-      <Container xl>
+      <Container md>
         <Header />
+        <HeaderBanner />
         <Trending />
       </Container>
     </NextUIProvider>
