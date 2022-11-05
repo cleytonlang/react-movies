@@ -28,7 +28,13 @@ export default function HeaderBanner() {
               A place where you can find your favorite movies
             </Text>
 
-            <Text span size={25}>
+            <Text
+              span
+              size={25}
+              css={{
+                textGradient: "75deg, $gray800 30%, $gray800 50%",
+              }}
+            >
               Where recommendations surprise you
             </Text>
           </Container>
