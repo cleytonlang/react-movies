@@ -4,7 +4,7 @@
 
 Application about movies using API IMDb for studies with React, using componentization concepts, context concepts and Tremor to create components.
 
-This application is hosted on AWS.
+This application is hosted on Vercel.
 - Demo: <a href="https://react-movies-seven-rho.vercel.app" target="_blank">click here</a>
 
 ## :gear: Techs used
@@ -12,6 +12,5 @@ This application is hosted on AWS.
 - React JS
 - Vite JS
 - Typescript
-- Styled Components
-- Tremor
+- NextUI
 - API IMDb
