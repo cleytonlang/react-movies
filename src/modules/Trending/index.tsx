@@ -1,29 +1,15 @@
-import "./style.css";
-import {
-  Grid,
-  Card,
-  Col,
-  Text,
-  Row,
-  Button,
-  Loading,
-  Tooltip,
-  Dropdown,
-} from "@nextui-org/react";
+import { Grid, Col, Text, Row, Loading } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import getData from "../../service/api";
 
-type genreProps = {
-  id: number;
-  name: string;
-};
-
-type mainMovieProps = {
-  original_title: string;
-  vote_average: number;
-  overview: string;
-  backdrop_path: string;
-};
+import {
+  ABox,
+  ImgContainer,
+  InnerSkew,
+  TextContainer,
+  SelectGeneric,
+  GenreSelected,
+} from "./styles";
 
 type trendingProps = {
   id: number;
@@ -33,16 +19,15 @@ type trendingProps = {
   overview: string;
 };
 
-export default function Trending() {
+type genreProps = {
+  name: string;
+};
+
+export default function Trending({ theme }: any) {
   const [trendings, setTrendings] = useState([]);
   const [load, setLoad] = useState<boolean>(false);
   const [genres, setGenres] = useState([]);
-  const [mainMovie, setMainMovie] = useState<mainMovieProps>({
-    original_title: "",
-    vote_average: 0,
-    overview: "",
-    backdrop_path: "",
-  });
+  const [genresSelected, setGenresSelected] = useState("");
 
   async function listGenres() {
     setLoad(true);
@@ -66,7 +51,6 @@ export default function Trending() {
       .then((response) => response.json())
       .then(({ results }) => {
         setLoad(false);
-        setMainMovie(results[0]);
         setTrendings(results);
       })
       .catch((error) => {
@@ -89,16 +73,16 @@ export default function Trending() {
       <Row gap={1}>
         <Col span={12}>
           <Grid.Container justify="center">
-            <Dropdown>
-              <Dropdown.Button flat>Genres</Dropdown.Button>
-              <Dropdown.Menu aria-label="Dynamic Actions" items={genres}>
-                {(item: any) => (
-                  <Dropdown.Item key={item.name} color={"primary"}>
-                    {item.name}
-                  </Dropdown.Item>
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
+            <GenreSelected theme={theme}>{genresSelected}</GenreSelected>
+            <SelectGeneric
+              theme={theme}
+              onChange={(e) => setGenresSelected(e.target.value)}
+            >
+              <option>Genres</option>
+              {genres.map((genre: genreProps) => (
+                <option value={genre.name}>{genre.name}</option>
+              ))}
+            </SelectGeneric>
           </Grid.Container>
 
           <Grid.Container gap={3} justify="center">
@@ -113,18 +97,16 @@ export default function Trending() {
                   xl={4}
                   key={trend.original_title}
                 >
-                  <div className="a-box">
-                    <div className="img-container">
-                      <div className="img-inner">
-                        <div className="inner-skew">
-                          <img
-                            src={`https://image.tmdb.org/t/p/w500/${trend.backdrop_path}`}
-                            alt={trend.original_title}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-container">
+                  <ABox>
+                    <ImgContainer>
+                      <InnerSkew theme={theme}>
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500/${trend.backdrop_path}`}
+                          alt={trend.original_title}
+                        />
+                      </InnerSkew>
+                    </ImgContainer>
+                    <TextContainer theme={theme}>
                       <Text
                         h1
                         size={25}
@@ -148,8 +130,8 @@ export default function Trending() {
                           {trend.overview}
                         </Text>
                       </div>
-                    </div>
-                  </div>
+                    </TextContainer>
+                  </ABox>
                 </Grid>
               ))}
           </Grid.Container>

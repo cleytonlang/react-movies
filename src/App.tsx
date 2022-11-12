@@ -1,26 +1,30 @@
 import { useState } from "react";
 import { Container } from "@nextui-org/react";
 import { createTheme, NextUIProvider } from "@nextui-org/react";
-import "../src/assets/css/App.css";
 
 import Header from "./components/Header";
 import HeaderBanner from "./components/HeaderBanner";
-import Trending from "./components/Trending";
-const lightTheme = createTheme({
+import Trending from "./modules/Trending";
+
+const light = {
   type: "light",
   theme: {
-    colors: {},
+    colors: {
+      background: "#e3eaf8",
+    },
   },
-});
+};
+const lightTheme = createTheme(light);
 
-const darkTheme = createTheme({
+const dark = {
   type: "dark",
   theme: {
     colors: {
-      background: "-webkit-linear-gradient(180deg, #000000, #060c1f 70%)",
+      background: "#020d18",
     },
   },
-});
+};
+const darkTheme = createTheme(dark);
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -28,9 +32,9 @@ function App() {
   return (
     <NextUIProvider theme={isDark ? darkTheme : lightTheme}>
       <Container md>
-        <Header />
+        <Header setIsDark={setIsDark} isDark={isDark} />
         <HeaderBanner />
-        <Trending />
+        <Trending theme={isDark ? dark.type : light.type} />
       </Container>
     </NextUIProvider>
   );
