@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import getData from "../../service/api";
 
 import {
+  TrendingContainer,
   ABox,
   ImgContainer,
   InnerSkew,
@@ -67,7 +68,7 @@ export default function Trending({ theme }: any) {
   }, []);
 
   return (
-    <div className="trending">
+    <TrendingContainer>
       {load && <Loading type="points-opacity" />}
 
       <Row gap={1}>
@@ -137,6 +138,6 @@ export default function Trending({ theme }: any) {
           </Grid.Container>
         </Col>
       </Row>
-    </div>
+    </TrendingContainer>
   );
 }

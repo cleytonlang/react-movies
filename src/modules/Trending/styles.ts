@@ -1,5 +1,11 @@
 import { styled } from "@stitches/react";
 
+export const TrendingContainer = styled("div", {
+  display: "flex",
+  marginTop: "40px",
+  maxWidth: "100%",
+});
+
 export const ABox = styled("div", {
   display: "inline-block",
   width: "100%",
