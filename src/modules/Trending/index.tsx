@@ -21,14 +21,16 @@ type trendingProps = {
 };
 
 type genreProps = {
+  id: number;
   name: string;
 };
 
 export default function Trending({ theme }: any) {
   const [trendings, setTrendings] = useState([]);
   const [load, setLoad] = useState<boolean>(false);
-  const [genres, setGenres] = useState([]);
-  const [genresSelected, setGenresSelected] = useState("");
+  const [genres, setGenres] = useState<genreProps[]>([]);
+  const [genresSelected, setGenresSelected] = useState<number>(0);
+  const [genresSelectedTitle, setGenresSelectedTitle] = useState("");
 
   async function listGenres() {
     setLoad(true);
@@ -46,9 +48,9 @@ export default function Trending({ theme }: any) {
       });
   }
 
-  async function listTrendings() {
+  async function listTrendings(url: string) {
     setLoad(true);
-    getData("/trending/movie/week")
+    getData(url)
       .then((response) => response.json())
       .then(({ results }) => {
         setLoad(false);
@@ -64,31 +66,48 @@ export default function Trending({ theme }: any) {
 
   useEffect(() => {
     listGenres();
-    listTrendings();
+    listTrendings("/trending/movie/week");
   }, []);
+
+  useEffect(() => {
+    if (genresSelected !== 0) {
+      const genreSelect = genres.filter(
+        (item: any) => item.id === genresSelected
+      );
+      if (genreSelect && genreSelect.length) {
+        setGenresSelectedTitle(genreSelect[0].name);
+      }
+      listTrendings(`/discover/movie?with_genres=${genresSelected}`);
+    }
+  }, [genresSelected]);
 
   return (
     <TrendingContainer>
-      {load && <Loading type="points-opacity" />}
-
       <Row gap={1}>
         <Col span={12}>
           <Grid.Container justify="center">
-            <GenreSelected theme={theme}>{genresSelected}</GenreSelected>
+            <GenreSelected theme={theme}>{genresSelectedTitle}</GenreSelected>
             <SelectGeneric
               theme={theme}
-              onChange={(e) => setGenresSelected(e.target.value)}
+              onChange={(e) => setGenresSelected(Number(e.target.value))}
             >
-              <option>Genres</option>
+              <option value={0}>Genres</option>
               {genres.map((genre: genreProps) => (
-                <option value={genre.name}>{genre.name}</option>
+                <option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </option>
               ))}
             </SelectGeneric>
           </Grid.Container>
 
+          {load && (
+            <Grid.Container justify="center" css={{ padding: "30px" }}>
+              <Loading type="points-opacity" size="lg" />
+            </Grid.Container>
+          )}
+
           <Grid.Container gap={3} justify="center">
-            {!load &&
-              trendings.length &&
+            {trendings.length &&
               trendings.map((trend: trendingProps) => (
                 <Grid
                   xs={12}
