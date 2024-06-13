@@ -1,4 +1,4 @@
-import { Container, Grid, Row, Col, Text } from "@nextui-org/react";
+import { Container, Grid, Row,  Text } from "@nextui-org/react";
 import movie from "../../assets/images/netflix_001.svg";
 import "./style.css";
 

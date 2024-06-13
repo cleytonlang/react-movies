@@ -79,7 +79,7 @@ export default function Trending({ theme }: any) {
       }
       listTrendings(`/discover/movie?with_genres=${genresSelected}`);
     }
-  }, [genresSelected]);
+  }, [genresSelected, genres]);
 
   return (
     <TrendingContainer>
